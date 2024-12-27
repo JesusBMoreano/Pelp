@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400;700&display=swap');
+
+.admin_user_group {
+    width: 900px;
+    display: flex;              /* Flexbox layout to align elements horizontally */
+    align-items: center;        /* Vertically align elements */
+    justify-content: space-between; /* Space between the user_info and image (optional) */
+    margin:170px 1px 1px 800px;
+}
+
+.user_info {
+    width: 300px;               /* Width of the user info box */
+    margin-right: 20px;         /* Space between user_info and image */
+}
+
+.login-image {
+    width: 600px;               /* Shrink image width */
+    height: auto;               /* Maintain aspect ratio */
+    max-width: 100%;
+}
+
+#log_to_yelp {
+    color: red;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 39px;
+}
+
+.sign_in {
+    width: 220px;
+    height: 40px;
+    font-size: 16px; /* Adjust the font size inside the button */
+    background-color: rgb(224, 34, 34) !important; /* Button background color */
+    color: white; /* Set the text color */
+}
+
+.sign_in:hover {
+    background-color: rgb(145, 37, 37) !important; /* Button hover background color */
+}
+
+#no_account{
+    font-size: 12px;
+
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+
+}
+
+#password_login{
+    width: 195px;
+}
+
+#username_login{
+    width: 195px;
+}

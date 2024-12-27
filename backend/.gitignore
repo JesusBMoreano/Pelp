@@ -1,0 +1,17 @@
+.idea/
+.vscode/
+node_modules/
+build/
+tmp/
+temp/
+db/
+.git/
+.env
+docker-compose.yaml
+my-ec2-key.pem
+my-ec2-key.ppk
+my-app.tar
+env.list
+dockerfile
+.dockerignore
+notes.txt

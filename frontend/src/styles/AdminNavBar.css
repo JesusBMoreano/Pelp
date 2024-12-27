@@ -1,0 +1,118 @@
+.admin_navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    margin-top: 15px;
+    border: 2px solid black;
+    height: 70px;
+    width: 1820px;
+    margin-left: 30px;
+    border-radius: 10px;
+}
+
+/*Left side admin nav bar*/
+.admin_logo {
+    margin-top: -12px;
+}
+
+.admin_navbar .logo {
+    font-size: 40px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+#admin_text {
+    color: black;
+}
+
+/*Middle admin navbar*/
+.middle_admin{
+    display: flex;
+    width: 1500px;
+    height: 60px
+}
+
+.searchbars {
+    display: inline-flex;
+    align-items: center;
+    margin: 0px;
+    margin-top: 2px;
+}
+
+.searchbar{
+    width:290px;
+}
+
+#search_icon {
+    color: #fff;
+    background-color: #d32323;
+    padding: 0 12px; /* Adjust for button size */
+    border-radius: 0 4px 4px 0;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -9px; /* Ensures no gap */
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    
+}
+
+.check_listings{
+    display: inline-flex;
+    margin-left: 460px !important;  
+    align-items: center;
+}
+
+/* Right Admin Navbar */
+.right_admin {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative; /* Ensure dropdown menu is positioned relative to this container */
+    display: flex;
+    align-items: center;
+}
+
+.right_admin #profile .MuiSvgIcon-root {
+    font-size: 3rem;
+    color: #d32323;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%; /* Positions the menu below the profile button */
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    min-width: 150px;
+    z-index: 10;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px 16px;
+    color: #333;
+    text-decoration: none;
+}
+
+.dropdown-item:hover {
+    background-color: #f5f5f5;
+    color: #d32323;
+}
+
+
+#profile:hover, #profile:focus, #profile:active {
+    background-color: transparent; /* Prevents background color change on hover, focus, and active states */
+    box-shadow: none; /* Removes any focus outline or shadow if present */
+}
+

@@ -1,0 +1,37 @@
+.slideshow-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+  }
+  
+  .slide {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 0.5s ease;
+    opacity: 0;
+  }
+  
+  .slide.active {
+    opacity: 1;
+  }
+  
+
+  /* This breaks eveery other button */
+
+  /* button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  button:first-of-type {
+    left: 10px;
+  }
+  
+  button:last-of-type {
+    left: 50px;
+  } */

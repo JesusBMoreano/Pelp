@@ -1,0 +1,558 @@
+openapi: 3.0.0
+info:
+  title: Yelp API
+  description: Yelp API for CMPE 202
+  contact:
+    name: Group name
+    url: http://localhost:8080
+  version: 1.0.0
+servers: 
+  - url: http://localhost:8080
+paths: 
+  /user/register:
+    post:
+      tags:
+        - user
+      summary: registerUser
+      description: Registers a new user.
+      operationId: registerUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+  /user/login:
+    get:
+      tags:
+        - user
+      summary: loginUser
+      description: Logs user into the website
+      operationId: loginUser
+      parameters:
+        - name: username
+          in: query
+          description: The user name for login
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The password for login in clear text
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Invalid username/password supplied
+  /user/logout:
+    get:
+      tags:
+        - user
+      summary: logoutUser
+      description: Logs out user
+      operationId: logoutUser
+      parameters: []
+      responses:
+        '204':
+          description: successful operation
+  /user/{username}:
+    get:
+      tags:
+        - user
+      summary: getUserByName
+      description: Get user by name
+      operationId: getUserByName
+      parameters:
+        - name: username
+          in: path
+          description: 'The name that needs to be fetched. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+        '400':
+          description: Invalid username supplied
+    put:
+      tags:
+        - user
+      summary: updateUser
+      description: Update user info
+      operationId: updateUser
+      parameters:
+        - name: username
+          in: path
+          description: name that need to be deleted
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent user in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid username supplied
+    delete:
+      tags:
+        - user
+      summary: deleteUser
+      description: Delete user.
+      operationId: deleteUser
+      parameters:
+        - name: username
+          in: path
+          description: The name that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid username supplied
+  /restaurant/displayRestaurants:
+    get:
+      tags:
+        - restaurant
+      summary: displayRestaurants
+      description: Gets all restaurants
+      operationId: displayRestaurants
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Restaurant'
+                example: 
+                - id: 1
+                  name: Restaurant1
+                  category: Pizza
+                  rating: 5 
+                  price: 5
+                - id: 2
+                  name: Restaurant2
+                  category: Burgers
+                  rating: 5 
+                  price: 5
+        '400':
+          description: Failed to fetch restaurants
+  /restaurant/newListing:
+    post:
+      tags:
+        - restaurant
+      summary: newListing
+      description: Creates a new restaurant.
+      operationId: newListing
+      requestBody:
+        description: Created restaurant
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Restaurant'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+        '400':
+          description: Bad Request
+  /restaurant/{restaurantname}:
+    get:
+      tags:
+        - restaurant
+      summary: getRestaurant
+      description: Get Restaurant
+      operationId: getRestaurant
+      parameters:
+        - name: restaurant
+          in: path
+          description: 'The restaurant that needs to be fetched. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'          
+        '400':
+          description: Invalid restaurant supplied
+    put:
+      tags:
+        - restaurant
+      summary: updateRestaurant
+      description: Update restaurant info
+      operationId: updateRestaurant
+      parameters:
+        - name: restaurant
+          in: path
+          description: Restaurant that need to be deleted
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent restaurant
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Restaurant'
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid restaurant supplied
+    delete:
+      tags:
+        - restaurant
+      summary: deleteRestaurant
+      description: Delete restaurant.
+      operationId: deleteRestaurant
+      parameters:
+        - name: restaurant
+          in: path
+          description: The restaurant that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid restaurant supplied
+  /search/{query}:
+    get:
+      tags:
+        - search
+      summary: getQuery
+      description: Get user query
+      operationId: getQuery
+      parameters:
+        - name: query
+          in: path
+          description: 'The query that needs to be fetched. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'          
+        '400':
+          description: Invalid query
+    put:
+      tags:
+        - search
+      summary: updateQuery
+      description: Updates user query
+      operationId: updateQuery
+      parameters:
+        - name: query
+          in: path
+          description: 'The query that needs to be fetched. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'          
+        '400':
+          description: Invalid query
+  /search/filter:
+    get:
+      tags:
+        - search
+      summary: filter
+      description: Filter
+      operationId: filter
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Restaurant'
+                example: 
+                - id: 1
+                  name: Restaurant1
+                  category: Pizza
+                  rating: 5 
+                  price: 5
+                - id: 2
+                  name: Restaurant2
+                  category: Burgers
+                  rating: 5 
+                  price: 5
+        '400':
+          description: Filter does not exist
+  /search/zipCode/{query}:
+    get:
+      tags:
+        - search
+      summary: getZipCodeQuery
+      description: Get user Zip Code query
+      operationId: getZipCodeQuery
+      parameters:
+        - name: query
+          in: path
+          description: 'The query that needs to be fetched. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'          
+        '400':
+          description: Invalid query
+  /listing/displayListings:
+    get:
+      tags:
+        - listing
+      summary: displayListings
+      description: Gets all listings
+      operationId: displayListings
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Review'
+                example: 
+                - id: 1
+                  userId: 2
+                  restaurantId: 3
+                  rating: 5 
+                  comment: "comment"
+                  date: "09/26/2024"
+                - id: 2
+                  userId: 2
+                  restaurantId: 3
+                  rating: 5 
+                  comment: "comment"
+                  date: "09/26/2024"
+        '400':
+          description: Failed to fetch restaurants
+  /listing/{query}:
+    get:
+      tags:
+        - listing
+      summary: getListing
+      description: Get user listing
+      operationId: getListing
+      parameters:
+        - name: query
+          in: path
+          description: 'The query that needs to be fetched. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'          
+        '400':
+          description: Invalid query
+    put:
+      tags:
+        - listing
+      summary: updateListing
+      description: Updates user listing
+      operationId: updateListing
+      parameters:
+        - name: query
+          in: path
+          description: 'The query that needs to be fetched. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'          
+        '400':
+          description: Invalid query
+    delete:
+      tags:
+        - listing
+      summary: deleteListing
+      description: Delete listing.
+      operationId: deleteListing
+      parameters:
+        - name: listing
+          in: path
+          description: The restaurant that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid restaurant supplied
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        username:
+          type: string
+          example: theUser
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: James
+        email:
+          type: string
+          example: john@email.com
+        password:
+          type: string
+          example: '12345'
+        userRole:
+          type: integer
+          description: User Status
+          format: int32
+          example: 1
+    Restaurant:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: restaurant
+        category:
+          type: string
+          example: Fast Food
+        rating:
+          type: integer
+          format: int64
+          example: 10
+        price:
+          type: integer
+          format: int64
+          example: 10
+        address:
+          type: string
+          example: 1234 Street Ave
+        zipCode:
+          type: integer
+          format: int64
+          example: 12345
+        description:
+          type: string
+          example: Fast Food
+        photos:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/Photo'
+              - $ref: '#/components/schemas/Photo'
+        hours:
+          type: integer
+          format: int64
+          example: 00
+        ownerId:
+          type: integer
+          format: int64
+          example: 12
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        userId:
+          type: integer
+          example: 10
+        restaurantId:
+          type: integer
+          example: 10
+        rating:
+          type: integer
+          format: int64
+          example: 10
+        comment:
+          type: string
+          example: 10
+        date:
+          type: string
+          example: "09/26/2024"
+    Photo:
+      type: object
+      properties:
+        url:
+          type: string
+          example: "String"
+  
